@@ -20,3 +20,16 @@ mongoose
   .catch((error) => {
     throw error;
   });
+
+const app: Express = express();
+const PORT: string = process.env.PORT || 4000;
+app.use(cors());
+app.use(todoRoutes);
+
+const uri: string = "mongodb://localhost:27017/";
+mongoose
+  .connect(uri)
+  .then(() => app.listen(PORT, () => console.log("Server is on")))
+  .catch((err) => {
+    console.error(err);
+  });
